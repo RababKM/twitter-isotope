@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% load thumbnail %}
+{% block body %}
+<div class="section">
+			<div class="container">
+				<br>
+				<div class="row object-non-visible" data-animation-effect="fadeIn">
+					<div class="col-md-12">
+
+						<!-- isotope filters start -->
+						<div class="filters text-center">
+							<ul class="nav nav-pills">
+								<li class="active"><a href="#" data-filter="*">All</a></li>
+								<li><a href="#" data-filter=".Django">Django</a></li>
+								<li><a href="#" data-filter=".kuwait">Kuwait</a></li>
+								<li><a href="#" data-filter=".techcrunch">TechCrunch</a></li>
+							</ul>
+						</div>
+						<!-- isotope filters end -->
+{#                        263x175 #}
+						<!-- portfolio items start -->
+						<div class="isotope-container row grid-space-20">
+
+                            {% for tweet in tweets  %}
+							<div class="col-sm-6 col-md-3 isotope-item {{ tweet.search }}">
+								<div class="image-box">
+									<div class="overlay-container">
+                                        {% thumbnail tweet.image "263x175" crop="center" as im  %}
+										    <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" alt="">
+                                        {% endthumbnail %}
+										<a class="overlay" data-toggle="modal" data-target="#project-1">
+											<i class="fa fa-search-plus"></i>
+											<span>{{ tweet.user }}</span>
+										</a>
+									</div>
+									<a class="btn btn-default btn-block" data-toggle="modal" data-target="#project-1">{{ tweet.user }}</a>
+								</div>
+								<!-- Modal -->
+								<div class="modal fade" id="project-1" tabindex="-1" role="dialog" aria-labelledby="project-1-label" aria-hidden="true">
+									<div class="modal-dialog modal-lg">
+										<div class="modal-content">
+											<div class="modal-header">
+												<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+												<h4 class="modal-title" id="project-1-label">{{ tweet.user }}</h4>
+											</div>
+											<div class="modal-body">
+												<h3>Tweet n</h3>
+												<div class="row">
+													<div class="col-md-6">
+														<p>{{ tweet.text }}</p>
+													</div>
+													<div class="col-md-6">
+                                                        {% thumbnail tweet.image "263x175" crop="center" as im  %}
+										                    <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" alt="">
+                                                        {% endthumbnail %}
+													</div>
+												</div>
+											</div>
+											<div class="modal-footer">
+												<button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Close</button>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- Modal end -->
+							</div>
+                            {% endfor %}
+
+						</div>
+						<!-- portfolio items end -->
+					</div>
+				</div>
+			</div>
+		</div>
+
+{% endblock %}
